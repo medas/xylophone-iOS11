@@ -7,10 +7,10 @@
 //
 
 import UIKit
+import AudioToolbox
 
 class ViewController: UIViewController{
     
-
     override func viewDidLoad() {
         super.viewDidLoad()
     }
@@ -19,11 +19,15 @@ class ViewController: UIViewController{
 
     @IBAction func notePressed(_ sender: UIButton) {
         
-        
-        
+        let note: String = "note" + String(sender.tag)
+        if let soundURL = Bundle.main.url(forResource: note, withExtension: "wav") {
+            var mySound: SystemSoundID = 0
+            AudioServicesCreateSystemSoundID(soundURL as CFURL, &mySound)
+            
+            AudioServicesPlaySystemSound(mySound)
+        }
     }
     
-  
 
 }
 
